@@ -4,37 +4,37 @@ import plotly.express as px
 import sys
 import os
 
-# src folder ko Python path me add karo
+
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 
 from data_preprocessing import load_and_preprocess_data
 
-# =========================================================
+
 # PAGE CONFIG
-# =========================================================
+
 st.set_page_config(
     page_title="European Bank Churn Analytics",
     page_icon="🏦",
     layout="wide"
 )
 
-# =========================================================
+
 # LOAD + PREPROCESS DATA
-# =========================================================
+
 df = load_and_preprocess_data()
 
-# =========================================================
+
 # TITLE
-# =========================================================
+
 st.title("🏦 European Bank Customer Churn Analytics")
 
 st.write(
     "Interactive dashboard for analysing customer segmentation "
     "and churn patterns in European banking."
 )
-# =========================================================
+
 # SIDEBAR FILTERS
-# =========================================================
+
 st.sidebar.header("🎛️ Filters")
 
 geography = st.sidebar.multiselect(
@@ -61,9 +61,9 @@ balance_segment = st.sidebar.multiselect(
     default=sorted(df["BalanceSegment"].unique())
 )
 
-# =========================================================
+
 # APPLY FILTERS
-# =========================================================
+
 filtered_df = df[
     (df["Geography"].isin(geography)) &
     (df["Gender"].isin(gender)) &
@@ -71,9 +71,9 @@ filtered_df = df[
     (df["BalanceSegment"].isin(balance_segment))
 ].copy()
 
-# =========================================================
+
 # KPI CALCULATIONS
-# =========================================================
+
 total_customers = len(filtered_df)
 
 churned_customers = filtered_df["Exited"].sum()
@@ -94,9 +94,9 @@ if len(filtered_df[filtered_df["BalanceSegment"] == "High-balance"]) > 0:
 else:
     high_value_churn = 0
 
-# =========================================================
+
 # KPI SECTION
-# =========================================================
+
 st.header("📊 Key Performance Indicators")
 
 col1, col2, col3, col4 = st.columns(4)
@@ -123,16 +123,16 @@ col4.metric(
 
 st.divider()
 
-# =========================================================
+
 # CHURN DISTRIBUTION
-# =========================================================
+
 st.header("📌 Churn Distribution")
 
 col1, col2 = st.columns(2)
 
-# -------------------------
+
 # DONUT CHART
-# -------------------------
+
 with col1:
 
     churn_data = filtered_df["Exited"].value_counts().reset_index()
@@ -161,9 +161,9 @@ with col1:
         use_container_width=True
     )
 
-# -------------------------
+
 # GEOGRAPHY CHURN
-# -------------------------
+
 with col2:
 
     geo_churn = (
@@ -197,16 +197,16 @@ with col2:
         use_container_width=True
     )
 
-# =========================================================
+
 # CUSTOMER SEGMENTATION
-# =========================================================
+# ========================================================
 st.header("👥 Customer Segmentation")
 
 col1, col2 = st.columns(2)
 
-# -------------------------
+
 # AGE GROUP
-# -------------------------
+
 with col1:
 
     age_churn = (
@@ -236,9 +236,9 @@ with col1:
         use_container_width=True
     )
 
-# -------------------------
+
 # GENDER
-# -------------------------
+
 with col2:
 
     gender_churn = (
@@ -268,16 +268,16 @@ with col2:
         use_container_width=True
     )
 
-# =========================================================
+
 # FINANCIAL ANALYSIS
-# =========================================================
+
 st.header("💰 Financial & Product Analysis")
 
 col1, col2 = st.columns(2)
 
-# -------------------------
+
 # BALANCE SEGMENT
-# -------------------------
+
 with col1:
 
     balance_churn = (
@@ -309,9 +309,9 @@ with col1:
         use_container_width=True
     )
 
-# -------------------------
+
 # NUMBER OF PRODUCTS
-# -------------------------
+
 with col2:
 
     product_churn = (
@@ -343,16 +343,16 @@ with col2:
         use_container_width=True
     )
 
-# =========================================================
+
 # CUSTOMER ACTIVITY
-# =========================================================
+
 st.header("👤 Customer Activity")
 
 col1, col2 = st.columns(2)
 
-# -------------------------
+
 # ACTIVE MEMBER
-# -------------------------
+
 with col1:
 
     active_churn = (
@@ -391,9 +391,9 @@ with col1:
         use_container_width=True
     )
 
-# -------------------------
+
 # CREDIT SCORE
-# -------------------------
+
 with col2:
 
     credit_churn = (
@@ -425,9 +425,9 @@ with col2:
         use_container_width=True
     )
 
-# =========================================================
+
 # BUSINESS INSIGHTS
-# =========================================================
+
 st.header("💡 Business Insights")
 
 if total_customers > 0:
@@ -467,9 +467,9 @@ if total_customers > 0:
         """
     )
 
-# =========================================================
+
 # DATA PREVIEW
-# =========================================================
+
 with st.expander("🔍 View Filtered Customer Data"):
 
     st.dataframe(
@@ -477,18 +477,18 @@ with st.expander("🔍 View Filtered Customer Data"):
         use_container_width=True
     )
 
-# =========================================================
+
 # FOOTER
-# =========================================================
+
 st.divider()
 
 st.caption(
     "European Bank Customer Churn Analytics | "
     "Machine Learning Project"
 )
-# =========================
+
 # CUSTOMER CHURN PREDICTION
-# =========================
+
 
 import joblib
 import pandas as pd
@@ -504,9 +504,9 @@ st.write(
 # Load trained model
 model = joblib.load("model.joblib")
 
-# -------------------------
+
 # Customer Inputs
-# -------------------------
+
 
 col1, col2 = st.columns(2)
 
@@ -575,9 +575,9 @@ with col2:
     )
 
 
-# -------------------------
+
 # Prediction
-# -------------------------
+
 
 if st.button("🔮 Predict Churn", type="primary"):
 
@@ -607,9 +607,9 @@ if st.button("🔮 Predict Churn", type="primary"):
 
     st.divider()
 
-    # -------------------------
+
     # Result
-    # -------------------------
+
 
     if prediction == 1:
 
@@ -637,7 +637,7 @@ if st.button("🔮 Predict Churn", type="primary"):
         st.info(
             "This customer is likely to remain with the bank."
         )
-        # =========================================================
+
 # CUSTOMER SEGMENTATION
 # =========================================================
 
@@ -650,9 +650,9 @@ st.write(
     "balance, activity and product usage."
 )
 
-# ---------------------------------------------------------
+
 # SEGMENT 1: BALANCE
-# ---------------------------------------------------------
+
 
 st.subheader("💰 Balance-based Segmentation")
 
@@ -713,7 +713,7 @@ with col2:
     )
 
 
-# ---------------------------------------------------------
+
 # SEGMENT 2: CUSTOMER ACTIVITY
 # ---------------------------------------------------------
 
@@ -760,9 +760,9 @@ st.plotly_chart(
 )
 
 
-# ---------------------------------------------------------
+
 # SEGMENT 3: PRODUCT USAGE
-# ---------------------------------------------------------
+
 
 st.subheader("📦 Product Usage Segmentation")
 
@@ -800,9 +800,9 @@ st.plotly_chart(
 )
 
 
-# ---------------------------------------------------------
+
 # SEGMENT 4: HIGH-VALUE CUSTOMERS
-# ---------------------------------------------------------
+
 
 st.subheader("💎 High-Value Customer Segment")
 
@@ -851,9 +851,9 @@ col3.metric(
 )
 
 
-# =========================================================
+
 # BUSINESS RECOMMENDATIONS
-# =========================================================
+
 
 st.divider()
 
