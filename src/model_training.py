@@ -11,18 +11,18 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 
-# =========================================================
+
 # IMPORT PREPROCESSING
-# =========================================================
+
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from data_preprocessing import load_and_preprocess_data
 
 
-# =========================================================
+
 # LOAD PREPROCESSED DATA
-# =========================================================
+
 
 df = load_and_preprocess_data()
 
@@ -30,9 +30,9 @@ print("\n========== DATA LOADED ==========")
 print("Shape:", df.shape)
 
 
-# =========================================================
+
 # REMOVE UNNECESSARY COLUMNS
-# =========================================================
+
 
 drop_columns = [
     "Exited",
@@ -45,9 +45,9 @@ X = df.drop(columns=drop_columns, errors="ignore")
 y = df["Exited"]
 
 
-# =========================================================
+
 # IDENTIFY FEATURES
-# =========================================================
+
 
 categorical_features = X.select_dtypes(
     include=["object"]
@@ -62,9 +62,9 @@ print("Categorical:", categorical_features)
 print("Numeric:", numeric_features)
 
 
-# =========================================================
+
 # PREPROCESSING PIPELINE
-# =========================================================
+
 
 preprocessor = ColumnTransformer(
     transformers=[
@@ -84,9 +84,9 @@ preprocessor = ColumnTransformer(
 )
 
 
-# =========================================================
+
 # RANDOM FOREST MODEL
-# =========================================================
+
 
 model = RandomForestClassifier(
     n_estimators=300,
@@ -97,9 +97,9 @@ model = RandomForestClassifier(
 )
 
 
-# =========================================================
+
 # COMPLETE PIPELINE
-# =========================================================
+
 
 pipeline = Pipeline(
     steps=[
@@ -109,9 +109,9 @@ pipeline = Pipeline(
 )
 
 
-# =========================================================
+
 # TRAIN TEST SPLIT
-# =========================================================
+
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -130,16 +130,16 @@ pipeline.fit(
 )
 
 
-# =========================================================
+
 # PREDICTION
-# =========================================================
+
 
 y_pred = pipeline.predict(X_test)
 
 
-# =========================================================
+
 # MODEL EVALUATION
-# =========================================================
+
 
 accuracy = accuracy_score(
     y_test,
@@ -169,9 +169,9 @@ print(
 )
 
 
-# =========================================================
+
 # SAVE MODEL
-# =========================================================
+
 
 model_path = "model.joblib"
 
