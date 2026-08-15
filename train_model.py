@@ -9,18 +9,18 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 
 
-# =========================
+
 # 1. LOAD DATASET
-# =========================
+
 
 df = pd.read_csv("data/European_Bank.csv")
 
 print("Dataset loaded:", df.shape)
 
 
-# =========================
+
 # 2. FEATURES & TARGET
-# =========================
+
 
 features = [
     "CreditScore",
@@ -39,9 +39,9 @@ X = df[features]
 y = df["Exited"]
 
 
-# =========================
+
 # 3. CATEGORICAL COLUMNS
-# =========================
+
 
 categorical_features = [
     "Geography",
@@ -60,9 +60,9 @@ numerical_features = [
 ]
 
 
-# =========================
+
 # 4. PREPROCESSING
-# =========================
+
 
 preprocessor = ColumnTransformer(
     transformers=[
@@ -80,9 +80,9 @@ preprocessor = ColumnTransformer(
 )
 
 
-# =========================
+
 # 5. MODEL
-# =========================
+
 
 model = RandomForestClassifier(
     n_estimators=200,
@@ -91,9 +91,9 @@ model = RandomForestClassifier(
 )
 
 
-# =========================
+
 # 6. PIPELINE
-# =========================
+
 
 pipeline = Pipeline(
     steps=[
@@ -103,9 +103,9 @@ pipeline = Pipeline(
 )
 
 
-# =========================
+
 # 7. TRAIN TEST SPLIT
-# =========================
+
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -116,18 +116,18 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 
-# =========================
+
 # 8. TRAIN
-# =========================
+
 
 print("Training model...")
 
 pipeline.fit(X_train, y_train)
 
 
-# =========================
+
 # 9. EVALUATION
-# =========================
+
 
 y_pred = pipeline.predict(X_test)
 
@@ -143,9 +143,9 @@ print("==============================")
 print(classification_report(y_test, y_pred))
 
 
-# =========================
+
 # 10. SAVE MODEL
-# =========================
+
 
 joblib.dump(pipeline, "model.joblib")
 
