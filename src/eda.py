@@ -6,16 +6,16 @@ import seaborn as sns
 from data_preprocessing import load_and_preprocess_data
 
 
-# ==============================
+
 # LOAD PREPROCESSED DATA
-# ==============================
+
 
 df = load_and_preprocess_data()
 
 
-# ==============================
+
 # BASIC DATASET INFORMATION
-# ==============================
+
 
 print("\n========== DATASET INFO ==========")
 print(df.shape)
@@ -24,17 +24,17 @@ print("\n========== COLUMNS ==========")
 print(df.columns.tolist())
 
 
-# ==============================
+
 # TARGET DISTRIBUTION
-# ==============================
+
 
 print("\n========== TARGET DISTRIBUTION ==========")
 print(df["Exited"].value_counts())
 
 
-# ==============================
+
 # OVERALL CHURN RATE
-# ==============================
+
 
 churn_rate = df["Exited"].mean() * 100
 
@@ -42,9 +42,9 @@ print("\n========== OVERALL CHURN RATE ==========")
 print(f"Churn Rate: {churn_rate:.2f}%")
 
 
-# ==============================
+
 # CHURN BY GENDER
-# ==============================
+
 
 print("\n========== CHURN BY GENDER ==========")
 
@@ -53,9 +53,9 @@ churn_gender = df.groupby("Gender")["Exited"].mean() * 100
 print(churn_gender)
 
 
-# ==============================
+
 # CHURN BY GEOGRAPHY
-# ==============================
+
 
 print("\n========== CHURN BY GEOGRAPHY ==========")
 
@@ -64,9 +64,9 @@ churn_geo = df.groupby("Geography")["Exited"].mean() * 100
 print(churn_geo)
 
 
-# ==============================
+
 # CHURN BY AGE GROUP
-# ==============================
+
 
 print("\n========== CHURN BY AGE GROUP ==========")
 
@@ -75,9 +75,9 @@ churn_age = df.groupby("AgeGroup")["Exited"].mean() * 100
 print(churn_age)
 
 
-# ==============================
+
 # CHURN BY CREDIT SCORE GROUP
-# ==============================
+
 
 print("\n========== CHURN BY CREDIT SCORE GROUP ==========")
 
@@ -86,9 +86,9 @@ churn_credit = df.groupby("CreditScoreGroup")["Exited"].mean() * 100
 print(churn_credit)
 
 
-# ==============================
+
 # CHURN BY TENURE GROUP
-# ==============================
+
 
 print("\n========== CHURN BY TENURE GROUP ==========")
 
@@ -97,9 +97,9 @@ churn_tenure = df.groupby("TenureGroup")["Exited"].mean() * 100
 print(churn_tenure)
 
 
-# ==============================
+
 # CHURN BY BALANCE SEGMENT
-# ==============================
+
 
 print("\n========== CHURN BY BALANCE SEGMENT ==========")
 
@@ -108,9 +108,9 @@ churn_balance = df.groupby("BalanceSegment")["Exited"].mean() * 100
 print(churn_balance)
 
 
-# ==============================
+
 # HIGH-VALUE CUSTOMER CHURN
-# ==============================
+
 
 print("\n========== HIGH-VALUE CUSTOMER CHURN ==========")
 
@@ -121,9 +121,9 @@ high_value_churn = high_value["Exited"].mean() * 100
 print(f"High-Value Customer Churn Rate: {high_value_churn:.2f}%")
 
 
-# ==============================
+
 # CHURNED VS RETAINED
-# ==============================
+
 
 print("\n========== CHURNED VS RETAINED ==========")
 
@@ -134,9 +134,9 @@ print(
 )
 
 
-# ==============================
+
 # VISUALIZATIONS
-# ==============================
+
 
 sns.set_theme(style="whitegrid")
 
